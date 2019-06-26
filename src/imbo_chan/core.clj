@@ -1,5 +1,9 @@
 (ns imbo-chan.core
-  (:require [toucan.db :as db])
+  (:require [toucan.db :as db]
+            [toucan.models :as models]
+            [ring.adapter.jetty :refer [run-jetty]]
+            [compojure.api.sweet :refer [routes]]
+            [imbo-chan.thread :refer [thread-routes]])
   (:gen-class))
 
 
@@ -10,8 +14,10 @@
    :password ""})
 
 
-(defn handler [request]
+(def app (apply routes user-routes))
+
+
+(defn -main [& args]
   (db/set-default-db-connection! db-spec)
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body "Hello World"})
+  (models/set-root-namespace! 'imbo-chan.models)
+  (run-jetty app {:port 3000}))

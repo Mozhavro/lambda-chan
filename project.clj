@@ -8,6 +8,8 @@
                  ; Web
                  [ring/ring-core "1.6.3"]
                  [ring/ring-jetty-adapter "1.6.3"]
+                 [prismatic/schema "1.1.9"]
+                 [metosin/compojure-api "2.0.0-alpha26"]
                  ; DB 
                  [toucan "1.1.9"]
                  [org.postgresql/postgresql "42.2.4"]]
