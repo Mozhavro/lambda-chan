@@ -6,9 +6,8 @@
             [ring.util.http-response :refer [created]]
             [compojure.api.sweet :refer [POST]]))
 
-(def max-thread-name-length 100
-     max-thread-description-length 240)
-
+(def max-thread-name-length 100)
+(def max-thread-description-length 240)
 
 (defn valid-name? [name]
   (utils/non-blank-with-max-length? name max-thread-name-length))
@@ -21,14 +20,9 @@
    :description (s/constrained s/Str valid-description?)
    :board_id (s/constrained s/Int utils/non-blank?)})
 
-
-
 (defn id->created [id]
   (created (str "/threads/" id) {:id id}))
 
-(defn canonicalize-thread-req [thread-req]
-  (-> (update thread-req :password hashers/derive)
-      (rename-keys {:password :password_hash})))
 
 (defn create-thread-handler [create-user-req]
   (->> create-user-req (db/insert! Thread)

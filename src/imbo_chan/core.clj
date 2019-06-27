@@ -14,7 +14,7 @@
    :password ""})
 
 
-(def app (apply routes user-routes))
+(def app (apply routes thread-routes))
 
 
 (defn -main [& args]
