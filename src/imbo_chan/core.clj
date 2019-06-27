@@ -3,7 +3,7 @@
             [toucan.models :as models]
             [ring.adapter.jetty :refer [run-jetty]]
             [compojure.api.sweet :refer [routes]]
-            [imbo-chan.thread :refer [thread-routes]])
+            [imbo-chan.topic :refer [topic-routes]])
   (:gen-class))
 
 
@@ -14,7 +14,7 @@
    :password ""})
 
 
-(def app (apply routes thread-routes))
+(def app (apply routes topic-routes))
 
 
 (defn -main [& args]
