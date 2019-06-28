@@ -3,19 +3,11 @@
             [toucan.models :as models]
             [ring.adapter.jetty :refer [run-jetty]]
             [compojure.api.sweet :refer [routes]]
-            [imbo-chan.topic :refer [topic-routes]])
+            [imbo-chan.topic :refer [topic-routes]]
+            [imbo-chan.settings :refer [db-spec]])
   (:gen-class))
 
-
-(def db-spec
-  {:dbtype "postgres"
-   :dbname "imbo"
-   :user "mozhar"
-   :password ""})
-
-
 (def app (apply routes topic-routes))
-
 
 (defn -main [& args]
   (db/set-default-db-connection! db-spec)
