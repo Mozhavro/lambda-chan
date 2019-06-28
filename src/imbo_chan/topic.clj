@@ -16,7 +16,7 @@
   (utils/non-blank-with-max-length? description max-topic-description-length))
 
 (s/defschema TopicRequestSchema
-  {:slug (s/constrained s/Str valid-name?)
+  {:name (s/constrained s/Str valid-name?)
    :description (s/constrained s/Str valid-description?)
    :board_id (s/constrained s/Int utils/non-blank?)})
 
@@ -25,7 +25,7 @@
 
 
 (defn create-topic-handler [create-user-req]
-  (->> create-user-req (db/insert! Thread)
+  (->> create-user-req (db/insert! Topic)
        :id
        id->created))
 
